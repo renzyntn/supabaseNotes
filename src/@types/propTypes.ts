@@ -39,6 +39,8 @@ export type FormModalProp = {
   navigate: NavigateFunction;
   id: string | null;
   functionLogic: (title: string, description: string) => Promise<void>;
+  isToast: boolean;
+  setIsToast: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type DeleteNoteProp = {
