@@ -10,7 +10,7 @@ function NoteCard({ notedata, navigate }: NoteCardProp) {
           className="size-6 lg:size-7 hover:cursor-pointer active:scale-90 transform duration-200 ease-in-out"
           title="Update Note"
           aria-label="Update button"
-          onClick={() => navigate(`/?form=update&id=${notedata.id}`)}
+          onClick={() => navigate(`/?form=update&id=${notedata.id}`)} // navigate to Update Note Data FormModal and highlight selected note/data's id in the URL (to be update)
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path
@@ -27,7 +27,7 @@ function NoteCard({ notedata, navigate }: NoteCardProp) {
           className="size-6 text-red-500 hover:cursor-pointer active:scale-90 transform duration-200 ease-in-out"
           title="Delete Note"
           aria-label="Delete button"
-          onClick={() => navigate(`/?form=delete&id=${notedata.id}`)}
+          onClick={() => navigate(`/?form=delete&id=${notedata.id}`)} // navigate to DeleteNote Modal and highlight selected note/data's id in the URL (to be delete)
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path
