@@ -47,3 +47,12 @@ export type DeleteNoteProp = {
   navigate: NavigateFunction;
   handleDelete: () => Promise<void>;
 };
+
+export type AuthProp = {
+  isPage: string;
+};
+
+export type SignOutProp = {
+  navigate: NavigateFunction;
+  handleSignOut: () => Promise<void>;
+};
