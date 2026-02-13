@@ -5,12 +5,14 @@ import Header from "../components/Header";
 import Notes from "../components/Notes";
 import FormModal from "../components/FormModal";
 import Footer from "../components/Footer";
+import LogoutModal from "../components/LogoutModal";
 
 function Home() {
   const [searchParams] = useSearchParams(); // Declare useSearchParams hook
   const showCreate = searchParams.get("form") === "create"; // Declare a boolean that returns true or false if route parameter '/?form=create' is accessed.
   const showUpdate = searchParams.get("form") === "update"; // Declare a boolean that returns true or false if route parameter '/?form=update' is accessed.
   const showDelete = searchParams.get("form") === "delete"; // Declare a boolean that returns true or false if route parameter '/?form=delete' is accessed.
+  const showLogout = searchParams.get("app") === "signout"; // Declare a boolean that returns true or false if route parameter '/?app=signout' is accessed.
   const id = searchParams.get("id"); // Declare const 'id' that holds the data with its primary id.
 
   const navigate = useNavigate(); // Declare useNavigate hook to be able to navigate to other pages.
@@ -71,6 +73,10 @@ function Home() {
     }
   };
 
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+  };
+
   return (
     <>
       <Header navigate={navigate} />
@@ -107,6 +113,9 @@ function Home() {
             isToast={isToast}
             setIsToast={setIsToast}
           />
+        )}
+        {showLogout && (
+          <LogoutModal navigate={navigate} handleSignOut={handleSignOut} />
         )}
       </main>
       <Footer />
