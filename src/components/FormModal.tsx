@@ -50,13 +50,13 @@ function FormModal({
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent browser's bevahior
 
-    if (!title || !description) {
+    if (!title.trim() || !description.trim()) {
       setIsToast(true); // set toast state to true
       setTimeout(() => setIsToast(false), 2500); // After 3 seconds, set toast state again to false for Toast UI to disappear
       return; // If user tries to submit without filling both of the fields, prevent to add the incomplete data
     }
 
-    await functionLogic(title, description); // Get title and description result and put it in functionLogic props as arguments (these will be the data return in either async 'handleCreate' or async 'handleUpdate' function)
+    await functionLogic(title.trim(), description.trim()); // Get title and description result and put it in functionLogic props as arguments (these will be the data return in either async 'handleCreate' or async 'handleUpdate' function) Also add .trim() to prevent adding white spaces
 
     setTitle(""); // set title state as an empty string after successful update
     setDescription(""); // set title state as an empty string after successful update
@@ -99,7 +99,7 @@ function FormModal({
         <fieldset className="fieldset w-full text-base">
           <legend className="fieldset-legend text-black">Description</legend>
           <textarea
-            className="textarea w-full validator bg-white border border-gray-400 rounded-lg text-black resize-none"
+            className="textarea w-full bg-white border border-gray-400 rounded-lg text-black resize-none"
             placeholder="Write something..."
             value={description} // set 'description' state as input's value attribute (so whatever data is typed in Input, it will be the 'description' state's new value)
             onChange={(e) => setDescription(e.target.value)}
