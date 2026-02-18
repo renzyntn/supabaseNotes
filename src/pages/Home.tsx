@@ -81,17 +81,15 @@ function Home() {
     <>
       <Header navigate={navigate} />
       <main className="max-w-screen min-h-screen p-8 bg-white overflow-auto">
-        <section>
-          <Notes
-            navigate={navigate}
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
-            isRefresh={isRefresh}
-            setIsRefresh={setIsRefresh}
-            showDelete={showDelete}
-            handleDelete={handleDelete}
-          />
-        </section>
+        <Notes
+          navigate={navigate}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          isRefresh={isRefresh}
+          setIsRefresh={setIsRefresh}
+          showDelete={showDelete}
+          handleDelete={handleDelete}
+        />
         {showCreate && (
           <FormModal
             formTitle={"Create New Note"}
