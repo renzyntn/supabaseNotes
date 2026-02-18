@@ -20,6 +20,11 @@ export type NotesProp = {
   handleDelete: () => Promise<void>;
 };
 
+export type SearchProp = {
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+};
+
 export type HomeProp = {
   toggleCreateModal: () => void;
   toggleEditModal: () => void;
