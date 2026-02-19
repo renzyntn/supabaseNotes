@@ -25,6 +25,10 @@ export type SearchProp = {
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 };
 
+export type OrderProp = {
+  setOrderBy: React.Dispatch<React.SetStateAction<string>>;
+};
+
 export type HomeProp = {
   toggleCreateModal: () => void;
   toggleEditModal: () => void;
