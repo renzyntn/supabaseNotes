@@ -5,6 +5,7 @@ import NoteCard from "./NoteCard";
 import DeleteNote from "./DeleteNote";
 import Loading from "./Loading/Loading";
 import Search from "./Search";
+import Order from "./Order";
 
 function Notes({
   navigate,
@@ -17,13 +18,14 @@ function Notes({
 }: NotesProp) {
   const [notesData, setNotesData] = useState<NoteData[]>([]); // set notesData state inital value as an empty array
   const [searchQuery, setSearchQuery] = useState(""); // declare searchQuery state initial value as an empty string
+  const [orderBy, setOrderBy] = useState("created_at");
 
   useEffect(() => {
     const fetchData = async () => {
       const { data, error } = await supabase
         .from("notes")
         .select()
-        .order("created_at", { ascending: false }); // Get all of the data in Supabase "notes" table. Position data as descending to highlight newly created data at the top
+        .order(orderBy, { ascending: false }); // Get all of the data in Supabase "notes" table. Position data as ascending false to highlight newly created data at first
 
       if (error) {
         console.log(error);
@@ -35,7 +37,7 @@ function Notes({
     };
 
     fetchData(); // Call async 'fetchData' for it to execute
-  }, [isRefresh]); // set refresh state as useEffect dependency. So this useEffect could run again when there's newly created (handleCreate) or updated note (handleUpdate)
+  }, [isRefresh, orderBy]); // set refresh state as useEffect dependency. So this useEffect could run again when there's newly created (handleCreate) or updated note (handleUpdate)
 
   // declare a filterSearchResult function and filter notesData object
   const filterSearchResult = notesData.filter((note) => {
@@ -65,7 +67,10 @@ function Notes({
         <Loading />
       ) : (
         <>
-          <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          <div className="flex justify-between items-center">
+            <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <Order setOrderBy={setOrderBy} />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-4 md:gap-6">
             {displayNote}
           </div>
