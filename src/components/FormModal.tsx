@@ -99,7 +99,7 @@ function FormModal({
         <fieldset className="fieldset w-full text-base">
           <legend className="fieldset-legend text-black">Description</legend>
           <textarea
-            className="textarea w-full bg-white border border-gray-400 rounded-lg text-black resize-none"
+            className="textarea w-full bg-white border border-gray-400 rounded-lg outline-none text-black resize-none"
             placeholder="Write something..."
             value={description} // set 'description' state as input's value attribute (so whatever data is typed in Input, it will be the 'description' state's new value)
             onChange={(e) => setDescription(e.target.value)}
