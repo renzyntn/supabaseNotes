@@ -95,7 +95,7 @@ function Auth({ isPage }: AuthProp) {
         <fieldset className="fieldset w-full">
           <legend className="fieldset-legend text-black text-sm">Email</legend>
           <input
-            className="input input-md w-full bg-white border border-gray-300 rounded-lg text-black"
+            className="input input-md w-full bg-white border border-gray-300 rounded-lg outline-none text-black"
             placeholder="johndoe@example.com"
             type="email"
             required
@@ -108,7 +108,7 @@ function Auth({ isPage }: AuthProp) {
             Password
           </legend>
           <input
-            className="input input-md w-full bg-white border border-gray-300 rounded-lg text-black"
+            className="input input-md w-full bg-white border border-gray-300 rounded-lg outline-none text-black"
             type="password"
             required
             value={password}

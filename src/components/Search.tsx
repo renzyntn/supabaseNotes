@@ -2,7 +2,7 @@ import type { SearchProp } from "../@types/propTypes";
 
 function Search({ searchQuery, setSearchQuery }: SearchProp) {
   return (
-    <div className="flex justify-start items-center gap-3 font-geist">
+    <div className="flex gap-2 font-geist">
       <label className="input input-md bg-white outline-none border border-gray-300 rounded-xl">
         <svg
           className="size-4 opacity-60"
@@ -30,7 +30,7 @@ function Search({ searchQuery, setSearchQuery }: SearchProp) {
           }}
         />
       </label>
-      <button className="btn btn-md rounded-full border-none bg-red-500 shadow-none text-white font-normal">
+      <button className="btn btn-md rounded-xl border-none bg-red-500 shadow-none text-white font-normal">
         Search
       </button>
     </div>
