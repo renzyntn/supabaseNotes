@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import supabase from "../config/supabaseClient";
 import type { NoteData, NotesProp } from "../@types/propTypes";
+import { useDebounce } from "use-debounce";
 import NoteCard from "./NoteCard";
 import DeleteNote from "./DeleteNote";
 import Loading from "./Loading/Loading";
@@ -18,7 +19,8 @@ function Notes({
 }: NotesProp) {
   const [notesData, setNotesData] = useState<NoteData[]>([]); // set notesData state inital value as an empty array
   const [searchQuery, setSearchQuery] = useState(""); // declare searchQuery state initial value as an empty string
-  const [orderBy, setOrderBy] = useState("created_at");
+  const [debounceQuery] = useDebounce(searchQuery, 500); // declare debounceQuery value as 'searchQuery' and delay it to 500ms
+  const [orderBy, setOrderBy] = useState("created_at"); // declare orderBy state inital value as "created_at"
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,11 +39,11 @@ function Notes({
     };
 
     fetchData(); // Call async 'fetchData' for it to execute
-  }, [isRefresh, orderBy]); // set refresh state as useEffect dependency. So this useEffect could run again when there's newly created (handleCreate) or updated note (handleUpdate)
+  }, [isRefresh, orderBy]); // set refresh state as useEffect dependency. So this useEffect could run again when there's newly created (handleCreate) or updated note (handleUpdate), same on orderBy since its value will change depending on selected order choice
 
   // declare a filterSearchResult function and filter notesData object
   const filterSearchResult = notesData.filter((note) => {
-    const query = searchQuery.toLowerCase().trim(); // declare const query to convert the value inputted as lower cases and remove white space
+    const query = debounceQuery.toLowerCase().trim(); // declare const query to convert the delayed value inputted as lower cases and remove white space
     const splitWords = query.split(" "); // split search query into individual words "helloworld => [hello, world]"
     const combinedWords = `${note.title} ${note.description}`.toLowerCase(); // declare combinedWords to merge note.title and note.description into one string and convert to lower case
 
@@ -63,18 +65,16 @@ function Notes({
 
   return (
     <section className="flex flex-col gap-6">
+      <div className="flex justify-between items-center">
+        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <Order setOrderBy={setOrderBy} />
+      </div>
       {isLoading ? (
         <Loading />
       ) : (
-        <>
-          <div className="flex justify-between items-center">
-            <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-            <Order setOrderBy={setOrderBy} />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-4 md:gap-6">
-            {displayNote}
-          </div>
-        </>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-4 md:gap-6">
+          {displayNote}
+        </div>
       )}
       {showDelete && (
         <DeleteNote navigate={navigate} handleDelete={handleDelete} />
